@@ -10,15 +10,22 @@ function exibirTextoNaTela(tag, texto) {
     campo.innerHTML = texto;
 }
 
+
 function exibirTextoInicial() {
     exibirTextoNaTela('h1', 'Jogo do número secreto');
     exibirTextoNaTela('p', 'Escolha um número entre 1 e 10.');
 }
 
+function clicarEnterParaVerificarChute(event) {
+    if (event.key == 'Enter') {
+        verificarChute();
+    }
+}
+
+document.querySelector('input').addEventListener('keypress', clicarEnterParaVerificarChute);
 
 function verificarChute() {
     let chute = parseInt(document.querySelector('input').value);
-
     if (isNaN(chute)) {
         return exibirTextoNaTela('p', 'Por favor, digite um número válido.'); 
     }
@@ -32,7 +39,8 @@ function verificarChute() {
         exibirTextoNaTela('p', mensagemTentativas);
         document.getElementById('reiniciar').removeAttribute('disabled', false);
         document.getElementById('chutar').setAttribute('disabled', true);
-    } else {
+        document.querySelector('input').removeEventListener('keypress', clicarEnterParaVerificarChute);
+        } else {
         if (numeroSecreto > chute) {
             exibirTextoNaTela('p', `O número secreto é maior do que ${chute}.`);
         } else {
@@ -69,4 +77,5 @@ function reiniciarJogo() {
     exibirTextoInicial();
     document.getElementById('reiniciar').setAttribute('disabled', true);
     document.getElementById('chutar').removeAttribute('disabled', false);
+    document.querySelector('input').addEventListener('keypress', clicarEnterParaVerificarChute);
 }
