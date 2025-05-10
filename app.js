@@ -28,7 +28,12 @@ function verificarChute() {
     let chute = parseInt(document.querySelector('input').value);
     if (isNaN(chute)) {
         return exibirTextoNaTela('p', 'Por favor, digite um número válido.'); 
+    } else {
+        if ((chute > quantidadeDeElementosPermitidos) || (chute < 1)) {
+            return exibirTextoNaTela('p', 'Por favor, digite um número válido.');
+        }
     }
+
 
     tentativas++; // tentativas = tentativas + 1
 
@@ -46,7 +51,7 @@ function verificarChute() {
         } else {
             exibirTextoNaTela('p', `O número secreto é menor do que ${chute}.`);
         }
-        limparCampo()
+        limparCampo();
     }
 }
 
